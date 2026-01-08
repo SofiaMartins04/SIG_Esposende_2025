@@ -92,6 +92,21 @@
         var layerComercio = L.tileLayer.wms('http://localhost:8081/geoserver/sig_esposende/wms', 
             L.extend({layers: 'sig_esposende:comercio', pane: 'painelTopo', opacity: 1.0}, wmsOptions));
 
+
+            // Adiciona estas opções para evitar o efeito de quadrados
+        var wmsOptionsMelhorado = {
+            format: 'image/png',
+            transparent: true,
+            version: '1.1.0',
+            tiled: false, // Força a pedir uma imagem única
+            ratio: 1,     // Garante que a imagem é do tamanho exato do ecrã
+            updateWhenIdle: true // Só pede nova imagem quando parares de mexer
+        };
+
+        // Exemplo de como aplicar a uma das tuas camadas:
+        var layerVias = L.tileLayer.wms('http://localhost:8081/geoserver/sig_esposende/wms', 
+        L.extend({layers: 'sig_esposende:via', pane: 'painelMeio', opacity: 1.0}, wmsOptionsMelhorado));
+
         layerGrupo.addTo(map);
 
         // --- 5. MENU DE CAMADAS ---
